@@ -8,11 +8,18 @@
 
 import UIKit
 
-class AddActivityViewController: UIViewController {
+class AddActivityViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var CancelButton: UIBarButtonItem!
     @IBOutlet weak var SaveButton: UIBarButtonItem!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var LocationTextField: UITextField!
+    @IBOutlet weak var DateTextField: UITextField!
+    @IBOutlet weak var DescriptionTextView: UITextView!
     
+    var delegate: AddActivityDelegate?
+    var newActivity: Activity?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +45,16 @@ class AddActivityViewController: UIViewController {
     */
 
     @IBAction func CancelButton(_ sender: Any) {
+        delegate?.didCancelActivity()
         dismiss(animated:true, completion: nil)
     }
     @IBAction func SaveButton(_ sender: Any) {
+        newActivity?.name = nameTextField.text!
+        newActivity?.description = DescriptionTextView.text
+        
+        delegate?.didSaveActivity(activity: newActivity!)
         dismiss(animated: true, completion: nil)
     }
+    
+    
 }

@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class FirstViewController: UIViewController, CLLocationManagerDelegate {
+class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var map: MKMapView!
     
@@ -19,6 +19,13 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let location = CLLocationCoordinate2D(latitude: -33.918861,longitude: 18.423300)
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let region = MKCoordinateRegion(center: location, span: span)
+        map.setRegion(region, animated: true)
+        
+        map.showsUserLocation = true
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -28,13 +35,72 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
         }
-        
+        setMapType()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setMapType()
+    }
+    func setMapType() {
+        /*
+         Different map types
+         map.mapType = .hybrid
+         map.mapType = .hybridFlyover
+         map.mapType = .satellite
+         map.mapType = .satelliteFlyover
+         map.mapType = .standard
+         */
+        let mapType = UserDefaults.standard.string(forKey: "mapType")
+        
+        if mapType != nil {
+            
+            if mapType == "hybrid" {
+                map.mapType = .hybrid
+            }
+            
+            if mapType == "hybridFlyover" {
+                map.mapType = .hybridFlyover
+            }
+            
+            if mapType == "satellite" {
+                map.mapType = .satellite
+            }
+            
+            if mapType == "satelliteFlyover" {
+                map.mapType = .satelliteFlyover
+            }
+            
+            if mapType == "standard" {
+                map.mapType = .standard
+            }
+            
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "addActivity" {
+            // Create a new GeoPoint model based off of the current user location we receive
+            let geopoint = GeoPoint(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
+            
+            // Create a new activity that we want to pass to the next controller, containing the current location
+            let activityWithCurrentLocation = Activity()
+            activityWithCurrentLocation?.location = geopoint
+            
+            // Because we embedded our ViewController inside a Navigation Controller, we need to get it through the navigation controller
+            let navigationController = segue.destination as! UINavigationController
+            let AddActivityViewController = navigationController.topViewController as! AddActivityViewController
+            
+            AddActivityViewController.newActivity = activityWithCurrentLocation
+            AddActivityViewController.delegate = self as! AddActivityDelegate
+        }
+    }
+    
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -56,6 +122,25 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate {
         // An error occurred trying to retrieve users location
         print("Error \(error)")
     }
+    
+    func mapView(_ mapView: MKMapView, didUpdate
+        userLocation: MKUserLocation) {
+        map.centerCoordinate = userLocation.location!.coordinate
+        
+    }
+    
+    func didSaveActivity(activity: Activity) {
+        print(activity)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2DMake(activity.location.lat, activity.location.lng);
+        annotation.title = activity.name
+        map.addAnnotation(annotation)
+    }
+    
+    func didCancelActivity() {
+        
+    }
+
 
 }
 

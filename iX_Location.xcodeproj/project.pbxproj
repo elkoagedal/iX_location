@@ -9,12 +9,16 @@
 /* Begin PBXBuildFile section */
 		A11C67731EE544CC00EB42C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67721EE544CC00EB42C4 /* AppDelegate.swift */; };
 		A11C67751EE544CC00EB42C4 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67741EE544CC00EB42C4 /* FirstViewController.swift */; };
-		A11C67771EE544CC00EB42C4 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67761EE544CC00EB42C4 /* SecondViewController.swift */; };
 		A11C677A1EE544CC00EB42C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A11C67781EE544CC00EB42C4 /* Main.storyboard */; };
 		A11C677C1EE544CC00EB42C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A11C677B1EE544CC00EB42C4 /* Assets.xcassets */; };
 		A11C677F1EE544CC00EB42C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A11C677D1EE544CC00EB42C4 /* LaunchScreen.storyboard */; };
-		A11C67871EE576B200EB42C4 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67861EE576B200EB42C4 /* ThirdViewController.swift */; };
 		A11C67891EE5846E00EB42C4 /* AddActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67881EE5846E00EB42C4 /* AddActivityViewController.swift */; };
+		A11C678B1EE6C30400EB42C4 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C678A1EE6C30400EB42C4 /* SettingsTableViewController.swift */; };
+		A11C678D1EE6D55A00EB42C4 /* ActivityLogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C678C1EE6D55A00EB42C4 /* ActivityLogTableViewController.swift */; };
+		A11C67911EE6FEDB00EB42C4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67901EE6FEDB00EB42C4 /* ProfileViewController.swift */; };
+		A11C67931EE7394900EB42C4 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67921EE7394900EB42C4 /* Activity.swift */; };
+		A11C67951EE7397D00EB42C4 /* AddActivityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67941EE7397D00EB42C4 /* AddActivityDelegate.swift */; };
+		A11C67971EE739C200EB42C4 /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67961EE739C200EB42C4 /* GeoPoint.swift */; };
 		C7A53FEB1081CC073E61B0B0 /* Pods_iX_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B604A9F23748949F2EA7E56 /* Pods_iX_Location.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,13 +28,17 @@
 		A11C676F1EE544CC00EB42C4 /* iX_Location.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iX_Location.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A11C67721EE544CC00EB42C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A11C67741EE544CC00EB42C4 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		A11C67761EE544CC00EB42C4 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		A11C67791EE544CC00EB42C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A11C677B1EE544CC00EB42C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A11C677E1EE544CC00EB42C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A11C67801EE544CC00EB42C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A11C67861EE576B200EB42C4 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		A11C67881EE5846E00EB42C4 /* AddActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActivityViewController.swift; sourceTree = "<group>"; };
+		A11C678A1EE6C30400EB42C4 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		A11C678C1EE6D55A00EB42C4 /* ActivityLogTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityLogTableViewController.swift; sourceTree = "<group>"; };
+		A11C67901EE6FEDB00EB42C4 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		A11C67921EE7394900EB42C4 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		A11C67941EE7397D00EB42C4 /* AddActivityDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActivityDelegate.swift; sourceTree = "<group>"; };
+		A11C67961EE739C200EB42C4 /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPoint.swift; sourceTree = "<group>"; };
 		AD57810F865DBE6CA3A78152 /* Pods-iX_Location.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iX_Location.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iX_Location/Pods-iX_Location.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,9 +86,13 @@
 			children = (
 				A11C67721EE544CC00EB42C4 /* AppDelegate.swift */,
 				A11C67741EE544CC00EB42C4 /* FirstViewController.swift */,
-				A11C67761EE544CC00EB42C4 /* SecondViewController.swift */,
-				A11C67861EE576B200EB42C4 /* ThirdViewController.swift */,
 				A11C67881EE5846E00EB42C4 /* AddActivityViewController.swift */,
+				A11C678A1EE6C30400EB42C4 /* SettingsTableViewController.swift */,
+				A11C678C1EE6D55A00EB42C4 /* ActivityLogTableViewController.swift */,
+				A11C67901EE6FEDB00EB42C4 /* ProfileViewController.swift */,
+				A11C67921EE7394900EB42C4 /* Activity.swift */,
+				A11C67941EE7397D00EB42C4 /* AddActivityDelegate.swift */,
+				A11C67961EE739C200EB42C4 /* GeoPoint.swift */,
 				A11C67781EE544CC00EB42C4 /* Main.storyboard */,
 				A11C677B1EE544CC00EB42C4 /* Assets.xcassets */,
 				A11C677D1EE544CC00EB42C4 /* LaunchScreen.storyboard */,
@@ -221,11 +233,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A11C67771EE544CC00EB42C4 /* SecondViewController.swift in Sources */,
+				A11C67911EE6FEDB00EB42C4 /* ProfileViewController.swift in Sources */,
+				A11C678B1EE6C30400EB42C4 /* SettingsTableViewController.swift in Sources */,
+				A11C67931EE7394900EB42C4 /* Activity.swift in Sources */,
 				A11C67731EE544CC00EB42C4 /* AppDelegate.swift in Sources */,
-				A11C67871EE576B200EB42C4 /* ThirdViewController.swift in Sources */,
 				A11C67891EE5846E00EB42C4 /* AddActivityViewController.swift in Sources */,
+				A11C67951EE7397D00EB42C4 /* AddActivityDelegate.swift in Sources */,
+				A11C67971EE739C200EB42C4 /* GeoPoint.swift in Sources */,
 				A11C67751EE544CC00EB42C4 /* FirstViewController.swift in Sources */,
+				A11C678D1EE6D55A00EB42C4 /* ActivityLogTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
