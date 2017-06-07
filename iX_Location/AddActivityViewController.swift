@@ -48,12 +48,15 @@ class AddActivityViewController: UIViewController, UIImagePickerControllerDelega
         delegate?.didCancelActivity()
         dismiss(animated:true, completion: nil)
     }
+    
     @IBAction func SaveButton(_ sender: Any) {
+        newActivity = Activity()
         newActivity?.name = nameTextField.text!
         newActivity?.description = DescriptionTextView.text
+        newActivity?.date = DateTextField.text!
         
-        delegate?.didSaveActivity(activity: newActivity!)
-        dismiss(animated: true, completion: nil)
+        self.delegate?.didSaveActivity(activity: self.newActivity!)
+        self.dismiss(animated: true, completion: nil)
     }
     
     

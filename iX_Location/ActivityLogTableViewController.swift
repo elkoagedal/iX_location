@@ -8,10 +8,19 @@
 
 import UIKit
 
-class ActivityLogTableViewController: UITableViewController {
+class ActivityLogTableViewController: UITableViewController, AddActivityDelegate {
 
     var activities: [Activity] = []
 
+    func didSaveActivity(activity: Activity) {
+        activities.append(activity)
+        self.tableView.reloadData()
+    }
+    
+    
+    func didCancelActivity() {
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +52,12 @@ class ActivityLogTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return activities.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,6 +65,8 @@ class ActivityLogTableViewController: UITableViewController {
 
         // Configure the cell...
 
+        cell.textLabel?.text = activities[indexPath.row].name
+        cell.detailTextLabel?.text = activities[indexPath.row].description
         return cell
     }
 
@@ -94,14 +105,30 @@ class ActivityLogTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "navToActivityDetail"{
+            let activityDetailViewController = segue.destination as! ActivityDetailViewController
+            
+            let cell = sender as! UITableViewCell
+            let indexPath = self.tableView.indexPath(for: cell)
+            
+            activityDetailViewController.activity = activities[(indexPath?.row)!]
     }
-    */
-
+        if segue.identifier == "addActivity" {
+            //let navigationViewController = segue.destination as! UINavigationController
+            
+            let addActivityViewController = segue.destination as! AddActivityViewController //navigationViewController.topViewController as! AddActivityViewController
+            
+            //addActivityViewController.activityTableViewController = self
+            addActivityViewController.delegate = self
+        }
+        
+}
 }

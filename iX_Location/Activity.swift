@@ -13,12 +13,14 @@ class Activity {
     
     var name: String
     var description: String
+    var date: String
     var image: UIImage?
     var location: GeoPoint
     
     init?() {
         self.name = ""
         self.description = ""
+        self.date = ""
         self.image = nil
         self.location = GeoPoint(latitude: 0.0, longitude: 0.0)
     }
