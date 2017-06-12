@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class AddActivityViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -20,6 +21,7 @@ class AddActivityViewController: UIViewController, UIImagePickerControllerDelega
     
     var delegate: AddActivityDelegate?
     var newActivity: Activity?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +56,26 @@ class AddActivityViewController: UIViewController, UIImagePickerControllerDelega
         newActivity?.name = nameTextField.text!
         newActivity?.description = DescriptionTextView.text
         newActivity?.date = DateTextField.text!
+        
+        let params = newActivity?.toJSON()
+        
+        Alamofire.request("https://ixlocation-5fe61.firebaseio.com/activities.json", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { response in
+            
+            //print(response.request)  // original URL request
+            print(response.response) // HTTP URL response
+            print(response.data)     // server data
+            print(response.result)   // result of response serialization
+            
+            switch response.result {
+            case .success(_):
+                self.delegate?.didSaveActivity(activity: self.newActivity!)
+                self.dismiss(animated: true, completion: nil)
+            case .failure: break
+                // Failure... handle error
+            }
+            
+        }
+        
         
         self.delegate?.didSaveActivity(activity: self.newActivity!)
         self.dismiss(animated: true, completion: nil)

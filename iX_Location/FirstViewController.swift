@@ -8,13 +8,16 @@
 
 import UIKit
 import MapKit
+import Alamofire
+import Gloss
 
-class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, AddActivityDelegate {
 
     @IBOutlet weak var map: MKMapView!
     
     var locationManager: CLLocationManager!
     var currentUserLocation: CLLocation!
+    var activities: [Activity] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +39,46 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapVie
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
         }
+        Alamofire.request("https://ixlocation-5fe61.firebaseio.com/activities.json").responseJSON { response in
+            //print(response.request)  // original URL request
+            //print(response.response) // HTTP URL response
+            //print(response.data)     // server data
+            //print(response.result)   // result of response serialization
+            
+            if let JSON = response.result.value {
+                print("JSON: \(JSON)")
+                
+                
+                if let response = JSON as? NSDictionary {
+                
+                for (_, value) in response {
+                    let activity = Activity()
+                    
+                    if let actDictionary = value as? [String : AnyObject] {
+                        activity?.name = actDictionary["name"] as? String
+                        activity?.description = actDictionary["description"] as? String
+                        
+                        if let geoPointDictionary = actDictionary["location"] as? [String: AnyObject] {
+                            let location = GeoPoint()
+                            location.lat = geoPointDictionary["lat"] as? Double
+                            location.lng = geoPointDictionary["lng"] as? Double
+                            activity?.location = location
+                            
+                            let annotation = MKPointAnnotation()
+                            annotation.coordinate = CLLocationCoordinate2DMake((activity?.location?.lat!)!, (activity?.location?.lng!)!);
+                            annotation.title = activity?.name
+                            self.map.addAnnotation(annotation)
+                        }
+                    }
+                    
+                    self.activities.append(activity!)
+                }
+                }
+                
+            }
+            
+        }
+        
         setMapType()
     }
 
@@ -86,7 +129,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapVie
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "addActivity" {
+        if segue.identifier == "addPin" {
             // Create a new GeoPoint model based off of the current user location we receive
             let geopoint = GeoPoint(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
             
@@ -99,7 +142,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapVie
             let AddActivityViewController = navigationController.topViewController as! AddActivityViewController
             
             AddActivityViewController.newActivity = activityWithCurrentLocation
-            AddActivityViewController.delegate = self as! AddActivityDelegate
+            AddActivityViewController.delegate = self as? AddActivityDelegate
         }
     }
     
@@ -134,7 +177,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapVie
     func didSaveActivity(activity: Activity) {
         print(activity)
         let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2DMake(activity.location.lat, activity.location.lng);
+        annotation.coordinate = CLLocationCoordinate2DMake((activity.location?.lat!)!, (activity.location?.lng!)!);
         annotation.title = activity.name
         map.addAnnotation(annotation)
     }

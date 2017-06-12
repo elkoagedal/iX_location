@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import Gloss
 
 class ActivityLogTableViewController: UITableViewController, AddActivityDelegate {
 
@@ -31,6 +33,7 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+       /*
         let activity1 = Activity()
         activity1?.name = "First"
         activity1?.description = "First Activity"
@@ -40,7 +43,67 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
         activity2?.name = "Second"
         activity2?.description = "Second Activity"
         activities.append(activity2!)
-
+        
+        let response = JSON as! NSDictionary
+        
+        for (key, value) in response {
+            let activity = Activity()
+            if let actDictionary = value as? [String: AnyObject]{
+                activity?.name = actDictionary ["name"] as! String
+                activity?.description = actDictionary ["description"] as! String
+                if let geoPointDictionary =
+            }
+        }
+*/
+        Alamofire.request("https://ixlocation-5fe61.firebaseio.com/activities.json").responseJSON { response in
+            //print(response.request)  // original URL request
+            //print(response.response) // HTTP URL response
+            //print(response.data)     // server data
+            //print(response.result)   // result of response serialization
+            
+            if let JSON = response.result.value {
+                print("JSON: \(JSON)")
+                
+                /*
+                let response = JSON as! NSDictionary
+                
+                for (key, value) in response {
+                    let activity = Activity()
+                    
+                    if let actDictionary = value as? [String : AnyObject] {
+                        activity?.name = actDictionary["name"] as! String
+                        activity?.description = actDictionary["description"] as! String
+                        
+                        if let geoPointDictionary = actDictionary["location"] as? [String: AnyObject] {
+                            let location = GeoPoint()
+                            location.lat = geoPointDictionary["lat"] as? Double
+                            location.lng = geoPointDictionary["lng"] as? Double
+                            activity?.location = location
+                            
+                     //       let annotation = MKPointAnnotation()
+                      //      annotation.coordinate = CLLocationCoordinate2DMake((activity?.location?.lat!)!, (activity?.location?.lng!)!);
+                      //      annotation.title = activity?.name
+                            //self.map.addAnnotation(annotation)
+                        }
+                    }
+                    
+                    self.activities.append(activity!)
+                }
+                self.tableView.reloadData()
+                */
+            }
+        }
+    }
+ 
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
     }
 
     override func didReceiveMemoryWarning() {

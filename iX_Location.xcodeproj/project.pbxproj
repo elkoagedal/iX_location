@@ -20,6 +20,7 @@
 		A11C67951EE7397D00EB42C4 /* AddActivityDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67941EE7397D00EB42C4 /* AddActivityDelegate.swift */; };
 		A11C67971EE739C200EB42C4 /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C67961EE739C200EB42C4 /* GeoPoint.swift */; };
 		A13CF64F1EE8107B008980AD /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13CF64E1EE8107B008980AD /* ActivityDetailViewController.swift */; };
+		A13CF6511EE9483B008980AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A13CF6501EE9483B008980AD /* GoogleService-Info.plist */; };
 		C7A53FEB1081CC073E61B0B0 /* Pods_iX_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B604A9F23748949F2EA7E56 /* Pods_iX_Location.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		A11C67941EE7397D00EB42C4 /* AddActivityDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActivityDelegate.swift; sourceTree = "<group>"; };
 		A11C67961EE739C200EB42C4 /* GeoPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoPoint.swift; sourceTree = "<group>"; };
 		A13CF64E1EE8107B008980AD /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
+		A13CF6501EE9483B008980AD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD57810F865DBE6CA3A78152 /* Pods-iX_Location.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iX_Location.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iX_Location/Pods-iX_Location.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +102,7 @@
 				A11C677B1EE544CC00EB42C4 /* Assets.xcassets */,
 				A11C677D1EE544CC00EB42C4 /* LaunchScreen.storyboard */,
 				A11C67801EE544CC00EB42C4 /* Info.plist */,
+				A13CF6501EE9483B008980AD /* GoogleService-Info.plist */,
 			);
 			path = iX_Location;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A11C677F1EE544CC00EB42C4 /* LaunchScreen.storyboard in Resources */,
+				A13CF6511EE9483B008980AD /* GoogleService-Info.plist in Resources */,
 				A11C677C1EE544CC00EB42C4 /* Assets.xcassets in Resources */,
 				A11C677A1EE544CC00EB42C4 /* Main.storyboard in Resources */,
 			);

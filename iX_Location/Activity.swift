@@ -8,14 +8,15 @@
 
 import Foundation
 import UIKit
+import Gloss
 
-class Activity {
+class Activity: Glossy, Decodable {
     
-    var name: String
-    var description: String
-    var date: String
+    var name: String?
+    var description: String?
+    var date: String?
     var image: UIImage?
-    var location: GeoPoint
+    var location: GeoPoint?
     
     init?() {
         self.name = ""
@@ -23,6 +24,20 @@ class Activity {
         self.date = ""
         self.image = nil
         self.location = GeoPoint(latitude: 0.0, longitude: 0.0)
+    }
+    
+    required init?(json: JSON) {
+        self.name = "name" <~~ json
+        self.description = "description" <~~ json
+        //self.location = "location" <~~ json
+    }
+    
+    func toJSON() -> JSON? {
+        return jsonify([
+            "name" ~~> self.name,
+            "description" ~~> self.description,
+            "location" ~~> self.location
+            ])
     }
     
 }
