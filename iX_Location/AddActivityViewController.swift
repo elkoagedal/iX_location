@@ -7,8 +7,8 @@
 //
 
 import UIKit
-//import Alamofire
-import Realm
+import Alamofire
+//import Realm
 
 class AddActivityViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -21,7 +21,7 @@ class AddActivityViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var DescriptionTextView: UITextView!
     
     var delegate: AddActivityDelegate?
-    var newActivity: ActivityDto?
+    var newActivity: Activity?
     
     
     override func viewDidLoad() {
@@ -56,28 +56,51 @@ class AddActivityViewController: UIViewController, UIImagePickerControllerDelega
     @IBAction func SaveButton(_ sender: Any) {
         
         let act = Activity()
-        act.name = nameTextField.text!
-        act.descr = DescriptionTextView.text
+        act?.name = nameTextField.text!
+        act?.description = DescriptionTextView.text
        
 
-        let realm = RLMRealm.default()
-        realm.beginWriteTransaction()
-        realm.add(act)
-        do {
-            try realm.commitWriteTransactionWithoutNotifying([])
-        } catch {
-            print("Error")
-}
         newActivity?.name = nameTextField.text!
         newActivity?.description = DescriptionTextView.text
-        newActivity?.date = DateTextField.text!
+       //newActivity?.date = DateTextField.text!
 
         self.delegate?.didSaveActivity(activity: self.newActivity!)
         self.dismiss(animated: true, completion: nil)
         
-        //let params = newActivity?.toJSON()
+    }
+    
+    @IBAction func addImageButton(_ sender: Any) {
         
-        /*
+        // Hide the keyboard
+        nameTextField.resignFirstResponder()
+        DescriptionTextView.resignFirstResponder()
+        
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        // The info dictionary may contain multiple representations of the image. You want to use the original.
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        // Set image to display the selected image.
+        imageView.image = selectedImage
+        
+        // Dismiss the picker.
+        dismiss(animated: true, completion: nil)
+    }    /*
+        let params = newActivity?.toJSON()
+        
+    
         Alamofire.request("https://ixlocation-5fe61.firebaseio.com/activities.json", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { response in
             
             //print(response.request)  // original URL request
@@ -100,8 +123,8 @@ class AddActivityViewController: UIViewController, UIImagePickerControllerDelega
         self.dismiss(animated: true, completion: nil)
     }
  
-    
+    */
+
+
 }
- */
-}
-}
+

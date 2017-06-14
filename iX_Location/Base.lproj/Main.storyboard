@@ -211,6 +211,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ee-rX-REk">
+                                <rect key="frame" x="325" y="85" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="addImageButton:" destination="dZi-TY-Heq" eventType="touchUpInside" id="rf4-CO-pPL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -275,7 +282,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kRO-L2-Y44" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" image="pin" selectedImage="pin" id="acW-dT-cKf"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Rn2-CL-xhp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Rn2-CL-xhp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -597,7 +604,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dye-2p-cQw" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="settings" selectedImage="settings" id="NNm-WL-soX"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="h0U-nD-rX4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="h0U-nD-rX4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -616,7 +623,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4M9-k9-nHm" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="list-with-bullets" selectedImage="list-with-bullets" id="kcT-1S-s34"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yVd-DJ-QyJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yVd-DJ-QyJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

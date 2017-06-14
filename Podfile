@@ -12,5 +12,7 @@ target 'iX_Location' do
   pod 'Alamofire', '~> 4.4'
   pod 'Gloss', '~> 1.2'
   pod ‘RealmSwift’
+  pod 'Firebase/Core'
+  pod 'Firebase/Storage'
 
 end

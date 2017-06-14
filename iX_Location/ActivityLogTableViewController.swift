@@ -9,22 +9,18 @@
 import UIKit
 import Alamofire
 import Gloss
-import Realm
+//import Realm
 
 class ActivityLogTableViewController: UITableViewController, AddActivityDelegate {
     
-    var activities: RLMResults<Activity> {
-        get {
-                return Activity.allObjects() as! RLMResults<Activity>
-        }
-    }
+    
     
    
 
-    //var activities: [Activity] = []
+    var activities: [Activity] = []
 
     
-    func didSaveActivity(activity: ActivityDto) {
+    func didSaveActivity(activity: Activity) {
         //activities.append(activity)
         self.tableView.reloadData()
     }
@@ -40,38 +36,15 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let realm = RLMRealm.default()
-        print("REALM FILE URL: \(realm.configuration.fileURL)")
-    
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-       /*
-        let activity1 = Activity()
-        activity1?.name = "First"
-        activity1?.description = "First Activity"
-        activities.append(activity1!)
-        
-        let activity2 = Activity()
-        activity2?.name = "Second"
-        activity2?.description = "Second Activity"
-        activities.append(activity2!)
-        
-        let response = JSON as! NSDictionary
-        
-        for (key, value) in response {
-            let activity = Activity()
-            if let actDictionary = value as? [String: AnyObject]{
-                activity?.name = actDictionary ["name"] as! String
-                activity?.description = actDictionary ["description"] as! String
-                if let geoPointDictionary =
-            }
-        }
-
-        Alamofire.request("https://ixlocation-5fe61.firebaseio.com/activities.json").responseJSON { response in
+       
+        Alamofire.request("https://ixlocation.firebaseio.com/activities.json").responseJSON { response in
             //print(response.request)  // original URL request
             //print(response.response) // HTTP URL response
             //print(response.data)     // server data
@@ -79,7 +52,6 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
             
             if let JSON = response.result.value {
                 print("JSON: \(JSON)")
-                
                 
                 let response = JSON as! NSDictionary
                 
@@ -95,21 +67,16 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
                             location.lat = geoPointDictionary["lat"] as? Double
                             location.lng = geoPointDictionary["lng"] as? Double
                             activity?.location = location
-                            
-                     //       let annotation = MKPointAnnotation()
-                      //      annotation.coordinate = CLLocationCoordinate2DMake((activity?.location?.lat!)!, (activity?.location?.lng!)!);
-                      //      annotation.title = activity?.name
-                            //self.map.addAnnotation(annotation)
                         }
                     }
                     
                     self.activities.append(activity!)
                 }
+                
                 self.tableView.reloadData()
- 
             }
         }
-    }
+        }
 
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
@@ -121,31 +88,31 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
         }
         return nil
     }
- */
-    func didReceiveMemoryWarning() {
+ 
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return Int(activities.count)
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AddActivity", for: indexPath)
-
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath)
+        
         // Configure the cell...
-
-        cell.textLabel?.text = activities[UInt(indexPath.row)].name
-        cell.detailTextLabel?.text = activities[UInt(indexPath.row)].description
+        cell.textLabel?.text = activities[indexPath.item].name
+        cell.detailTextLabel?.text = activities[indexPath.item].description
+        
         return cell
     }
 
@@ -213,5 +180,4 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
 }
 }
  */
-}
 }

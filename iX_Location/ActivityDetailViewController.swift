@@ -18,7 +18,7 @@ class ActivityDetailViewController: UIViewController {
     
     @IBOutlet weak var locationLabel: UILabel!
     
-    var activity: ActivityDto?
+    var activity: Activity?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class ActivityDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         nameLabel.text = activity?.name
         descriptionLabel.text = activity?.description
-        dateLabel.text = activity?.date
+       // dateLabel.text = activity?.date
     }
 
     override func didReceiveMemoryWarning() {
