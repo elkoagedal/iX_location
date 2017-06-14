@@ -11,13 +11,14 @@ import MapKit
 import Alamofire
 import Gloss
 
+
 class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, AddActivityDelegate {
 
     @IBOutlet weak var map: MKMapView!
     
     var locationManager: CLLocationManager!
     var currentUserLocation: CLLocation!
-    var activities: [Activity] = []
+    var activities: [ActivityDto] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,15 +49,14 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapVie
             if let JSON = response.result.value {
                 print("JSON: \(JSON)")
                 
+                let response = JSON as! NSDictionary
                 
-                if let response = JSON as? NSDictionary {
-                
-                for (_, value) in response {
-                    let activity = Activity()
+                for (key, value) in response {
+                    let activity = ActivityDto()
                     
                     if let actDictionary = value as? [String : AnyObject] {
-                        activity?.name = actDictionary["name"] as? String
-                        activity?.description = actDictionary["description"] as? String
+                        activity?.name = actDictionary["name"] as! String
+                        activity?.description = actDictionary["description"] as! String
                         
                         if let geoPointDictionary = actDictionary["location"] as? [String: AnyObject] {
                             let location = GeoPoint()
@@ -73,10 +73,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapVie
                     
                     self.activities.append(activity!)
                 }
-                }
-                
             }
-            
         }
         
         setMapType()
@@ -129,12 +126,12 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapVie
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "addPin" {
+        if segue.identifier == "addActivity" {
             // Create a new GeoPoint model based off of the current user location we receive
             let geopoint = GeoPoint(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
             
             // Create a new activity that we want to pass to the next controller, containing the current location
-            let activityWithCurrentLocation = Activity()
+            let activityWithCurrentLocation = ActivityDto()
             activityWithCurrentLocation?.location = geopoint
             
             // Because we embedded our ViewController inside a Navigation Controller, we need to get it through the navigation controller
@@ -174,7 +171,7 @@ class FirstViewController: UIViewController, CLLocationManagerDelegate, MKMapVie
         
     }
     
-    func didSaveActivity(activity: Activity) {
+    func didSaveActivity(activity: ActivityDto) {
         print(activity)
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2DMake((activity.location?.lat!)!, (activity.location?.lng!)!);

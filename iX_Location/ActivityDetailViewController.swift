@@ -18,7 +18,7 @@ class ActivityDetailViewController: UIViewController {
     
     @IBOutlet weak var locationLabel: UILabel!
     
-    var activity: Activity?
+    var activity: ActivityDto?
     
     override func viewDidLoad() {
         super.viewDidLoad()

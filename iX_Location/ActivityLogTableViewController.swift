@@ -9,24 +9,40 @@
 import UIKit
 import Alamofire
 import Gloss
+import Realm
 
 class ActivityLogTableViewController: UITableViewController, AddActivityDelegate {
+    
+    var activities: RLMResults<Activity> {
+        get {
+                return Activity.allObjects() as! RLMResults<Activity>
+        }
+    }
+    
+   
 
-    var activities: [Activity] = []
+    //var activities: [Activity] = []
 
-    func didSaveActivity(activity: Activity) {
-        activities.append(activity)
+    
+    func didSaveActivity(activity: ActivityDto) {
+        //activities.append(activity)
         self.tableView.reloadData()
     }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.tableView.reloadData()
+    }
     func didCancelActivity() {
     }
     
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let realm = RLMRealm.default()
+        print("REALM FILE URL: \(realm.configuration.fileURL)")
+    
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -54,7 +70,7 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
                 if let geoPointDictionary =
             }
         }
-*/
+
         Alamofire.request("https://ixlocation-5fe61.firebaseio.com/activities.json").responseJSON { response in
             //print(response.request)  // original URL request
             //print(response.response) // HTTP URL response
@@ -64,7 +80,7 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
             if let JSON = response.result.value {
                 print("JSON: \(JSON)")
                 
-                /*
+                
                 let response = JSON as! NSDictionary
                 
                 for (key, value) in response {
@@ -90,11 +106,11 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
                     self.activities.append(activity!)
                 }
                 self.tableView.reloadData()
-                */
+ 
             }
         }
     }
- 
+
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {
             do {
@@ -105,31 +121,31 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
         }
         return nil
     }
-
-    override func didReceiveMemoryWarning() {
+ */
+    func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return activities.count
+        return Int(activities.count)
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddActivity", for: indexPath)
 
         // Configure the cell...
 
-        cell.textLabel?.text = activities[indexPath.row].name
-        cell.detailTextLabel?.text = activities[indexPath.row].description
+        cell.textLabel?.text = activities[UInt(indexPath.row)].name
+        cell.detailTextLabel?.text = activities[UInt(indexPath.row)].description
         return cell
     }
 
@@ -171,6 +187,7 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
     
     // MARK: - Navigation
 
+        /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -193,5 +210,8 @@ class ActivityLogTableViewController: UITableViewController, AddActivityDelegate
             addActivityViewController.delegate = self
         }
         
+}
+}
+ */
 }
 }

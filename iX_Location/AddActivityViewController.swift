@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import Alamofire
+//import Alamofire
+import Realm
 
 class AddActivityViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -20,7 +21,7 @@ class AddActivityViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var DescriptionTextView: UITextView!
     
     var delegate: AddActivityDelegate?
-    var newActivity: Activity?
+    var newActivity: ActivityDto?
     
     
     override func viewDidLoad() {
@@ -29,6 +30,7 @@ class AddActivityViewController: UIViewController, UIImagePickerControllerDelega
         // Do any additional setup after loading the view.
         
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -52,13 +54,30 @@ class AddActivityViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func SaveButton(_ sender: Any) {
-        newActivity = Activity()
+        
+        let act = Activity()
+        act.name = nameTextField.text!
+        act.descr = DescriptionTextView.text
+       
+
+        let realm = RLMRealm.default()
+        realm.beginWriteTransaction()
+        realm.add(act)
+        do {
+            try realm.commitWriteTransactionWithoutNotifying([])
+        } catch {
+            print("Error")
+}
         newActivity?.name = nameTextField.text!
         newActivity?.description = DescriptionTextView.text
         newActivity?.date = DateTextField.text!
+
+        self.delegate?.didSaveActivity(activity: self.newActivity!)
+        self.dismiss(animated: true, completion: nil)
         
-        let params = newActivity?.toJSON()
+        //let params = newActivity?.toJSON()
         
+        /*
         Alamofire.request("https://ixlocation-5fe61.firebaseio.com/activities.json", method: .post, parameters: params, encoding: JSONEncoding.default).responseJSON { response in
             
             //print(response.request)  // original URL request
@@ -80,6 +99,9 @@ class AddActivityViewController: UIViewController, UIImagePickerControllerDelega
         self.delegate?.didSaveActivity(activity: self.newActivity!)
         self.dismiss(animated: true, completion: nil)
     }
+ 
     
-    
+}
+ */
+}
 }
